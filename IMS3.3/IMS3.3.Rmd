@@ -20,7 +20,7 @@ library(knitr)
 library(ggplot2)
 library(showtext)
 library(devtools)
-library(ThemePark)
+
 
 
 ```
@@ -52,7 +52,7 @@ We predict that children would think the main character is better friends with t
 
 ## Load Data 
 ```{r recode}
-data<-read.csv("IMS3.3 (Pre-Reg) Data - Sheet1.csv")
+data<-read.csv("IMS3.3/IMS3.3 (Pre-Reg) Data - Sheet1.csv") 
 
 
 ```
@@ -69,38 +69,37 @@ colnames(data)[17]<-"friendship_choice"
 colnames(data)[23]<-"age"
 
 data<-subset(data,data$condition %in% c("R","W"))
+
+data<-subset(data,data$age>=4)
+data<-subset(data,data$age<=12)
 ```
-## Data Processing 
+## Data Analysis 
 ```{r DP}
-data$choice<-as.factor(ifelse(data$friendship_choice==data$corrected_in_public, 1,0))
+data$choice<-(ifelse(data$friendship_choice==data$corrected_in_public, 0,1))
 
 # Output Linear Regression 
 
-choiceIMS3.3<-glm(choice~condition,
+choiceIMS3.3<-glm(choice~condition*age,
                   data=data, family="binomial")
 
 summary(choiceIMS3.3)
+
+plot<-ggplot(data=data,
+              aes(x=age,
+                  y=choice,
+                  color=condition))+
+  labs(x="Participant Age",
+       y="Probability of Choosing Private",
+       color="Condition")+
+  geom_jitter(alpha=.2,height=.1)+
+  geom_smooth(method="gam")+
+  scale_color_manual(values=c("deepskyblue","violetred4"),labels=c("Correcting","Affirming"))+
+  theme_gray(base_size=20)+
+  geom_hline(yintercept=.5,linetype="dashed")+
+  scale_x_continuous(breaks=4:12)
+
+plot
 ```
 
 
 
-Linear Regression 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
