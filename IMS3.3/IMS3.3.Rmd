@@ -1,0 +1,106 @@
+---
+title: "IMS3.3"
+author: "Ariana Kim"
+date: '`r Sys.Date()`'
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    fig_width: 10
+    fig_height: 6
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(tidyverse)
+library(stringr)
+library(knitr)
+library(ggplot2)
+library(showtext)
+library(devtools)
+library(ThemePark)
+
+
+```
+
+# Background
+
+## Research Question
+Can correcting be used as a friendship cue within children? 
+
+## Study Design 
+Between-Subjects Design 
+
+**Predictors:**
+1. Reported Age in Years: 4 to 13
+
+2. Public vs. Private Selections: 0=public-1=private
+  + Categorical
+  
+3. Correcting vs. Affirmation:1=affirming, 2=correcting
+  + Categorical 
+  
+**Outcome:**
+1. Friend Choice: Jayden or Taylor
+
+## Predicted Results 
+We predict that children would think the main character is better friends with the character corrected in private, and better friends with the person affirmed in public. 
+
+# Data Preparation 
+
+## Load Data 
+```{r recode}
+data<-read.csv("IMS3.3 (Pre-Reg) Data - Sheet1.csv")
+
+
+```
+## Rename Variables 
+```{r RV}
+colnames(data)[6]<-"condition"
+
+colnames(data)[8]<-"corrected_in_public"
+
+colnames(data)[9]<-"corrected_in_private"
+
+colnames(data)[17]<-"friendship_choice"
+
+colnames(data)[23]<-"age"
+
+data<-subset(data,data$condition %in% c("R","W"))
+```
+## Data Processing 
+```{r DP}
+data$choice<-as.factor(ifelse(data$friendship_choice==data$corrected_in_public, 1,0))
+
+# Output Linear Regression 
+
+choiceIMS3.3<-glm(choice~condition,
+                  data=data, family="binomial")
+
+summary(choiceIMS3.3)
+```
+
+
+
+Linear Regression 
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
