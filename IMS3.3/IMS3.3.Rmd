@@ -99,7 +99,17 @@ plot<-ggplot(data=data,
   scale_x_continuous(breaks=4:12)
 
 plot
+
 ```
+
+## Analysis and Inferences 
+
+As the age demographic increases, the purple regression line showcases that children believed Alex was better friends with the character corrected in private. 
+
+As the age demographic increases, the blue regression line showcases that children believed Alex was better friends with the character affirmed in public. 
+
+As we can see, our hypothesis was supported. Children thought Alex would be better friends with the person corrected in private, and better friends with the person affirmed in public. 
+
 
 
 
