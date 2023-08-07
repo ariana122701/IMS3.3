@@ -73,7 +73,7 @@ data<-subset(data,data$condition %in% c("R","W"))
 data<-subset(data,data$age>=4)
 data<-subset(data,data$age<=12)
 ```
-## Data Analysis 
+# Data Analysis 
 ```{r DP}
 data$choice<-(ifelse(data$friendship_choice==data$corrected_in_public, 0,1))
 
