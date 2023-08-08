@@ -34,7 +34,7 @@ Can correcting be used as a friendship cue within children?
 Between-Subjects Design 
 
 **Predictors:**
-1. Reported Age in Years: 4 to 13
+1. Reported Age in Years: 4 to 12
 
 2. Public vs. Private Selections: 0=public-1=private
   + Categorical
@@ -71,7 +71,10 @@ colnames(data)[23]<-"age"
 data<-subset(data,data$condition %in% c("R","W"))
 
 data<-subset(data,data$age>=4)
-data<-subset(data,data$age<=12)
+data<-subset(data,data$age<13)
+
+data <- data %>%
+  filter(data$Exclude. == "No")
 ```
 # Data Analysis 
 ```{r DP}
