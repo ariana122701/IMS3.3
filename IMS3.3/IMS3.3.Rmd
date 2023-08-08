@@ -35,18 +35,21 @@ Between-Subjects Design
 
 **Predictors:**
 1. Reported Age in Years: 4 to 12
-
-2. Public vs. Private Selections: 0=public-1=private
-  + Categorical
   
-3. Correcting vs. Affirmation:1=affirming, 2=correcting
+2. Correcting vs. Affirmation:1=affirming, 2=correcting
   + Categorical 
   
 **Outcome:**
-1. Friend Choice: Jayden or Taylor
+1. Public vs. Private Selections: 0=public-1=private
+  + Categorical
 
 ## Predicted Results 
-We predict that children would think the main character is better friends with the character corrected in private, and better friends with the person affirmed in public. 
+
+Correcting Condition: The main character would be better friends with the person corrected in private. 
+
+Affirming Condition: The main character would be better friends with the person affirmed in public.
+
+Children's Age: Older children (7-12) will be better at making these inferences compared to younger children (4-6). 
 
 # Data Preparation 
 
@@ -96,7 +99,7 @@ plot<-ggplot(data=data,
        color="Condition")+
   geom_jitter(alpha=.2,height=.1)+
   geom_smooth(method="gam")+
-  scale_color_manual(values=c("deepskyblue","violetred4"),labels=c("Correcting","Affirming"))+
+  scale_color_manual(values=c("deepskyblue","violetred4"),labels=c("Affirming","Correcting"))+
   theme_gray(base_size=20)+
   geom_hline(yintercept=.5,linetype="dashed")+
   scale_x_continuous(breaks=4:12)
@@ -107,9 +110,9 @@ plot
 
 ## Analysis and Inferences 
 
-As the age demographic increases, the purple regression line showcases that children believed Alex was better friends with the character corrected in private. 
+Correcting Condition: As the age demographic increases, the purple regression line showcases that children believed Alex was better friends with the character corrected in private. 
 
-As the age demographic increases, the blue regression line showcases that children believed Alex was better friends with the character affirmed in public. 
+Affirming Condition: As the age demographic increases, the blue regression line showcases that children believed Alex was better friends with the character affirmed in public. 
 
 As we can see, our hypothesis was supported. Children thought Alex would be better friends with the person corrected in private, and better friends with the person affirmed in public. 
 
